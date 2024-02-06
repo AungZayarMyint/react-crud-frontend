@@ -3,6 +3,7 @@ import { Form, redirect } from "react-router-dom";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useActionData } from "react-router-dom";
 import uuid from "react-uuid";
+import { POST_API, POST_DETAIL_API } from "../service/constants";
 
 const PostForm = ({ header, btnText, oldPostData, method }) => {
   const data = useActionData();
@@ -84,11 +85,11 @@ export const action = async ({ request, params }) => {
     date: data.get("date"),
   };
 
-  let url = "http://localhost:8080/posts";
+  let url = POST_API;
 
   if (method === "PATCH") {
     const id = params.id;
-    url = `http://localhost:8080/posts/${id}`;
+    url = POST_DETAIL_API(id);
   }
 
   const response = await fetch(url, {

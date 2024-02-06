@@ -1,6 +1,7 @@
 import React from "react";
 import { redirect, useRouteLoaderData } from "react-router-dom";
 import PostDetails from "../components/PostDetails";
+import { POST_DETAIL_API } from "../service/constants";
 
 const Details = () => {
   const post = useRouteLoaderData("post-detail");
@@ -14,7 +15,7 @@ const Details = () => {
 export default Details;
 
 export const loader = async ({ request, params }) => {
-  const response = await fetch(`http://localhost:8080/posts/${params.id}`);
+  const response = await fetch(POST_DETAIL_API(params.id));
 
   if (!response.ok) {
   } else {
@@ -24,7 +25,7 @@ export const loader = async ({ request, params }) => {
 };
 
 export const action = async ({ request, params }) => {
-  const response = await fetch(`http://localhost:8080/posts/${params.id}`, {
+  const response = await fetch(POST_DETAIL_API(params.id), {
     method: request.method,
   });
   if (!response.ok) {
